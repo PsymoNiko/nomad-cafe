@@ -10,6 +10,7 @@ import { CartDrawer } from "@/components/cart-drawer"
 import { CartProvider, useCart } from "@/components/cart-context"
 import { cn } from "@/lib/utils"
 import { TonConnectUIProvider, TonConnectButton } from "@tonconnect/ui-react"
+import { LoadingScreen } from "@/components/loading-screen"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = React.useState(false)
@@ -18,6 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <TonConnectUIProvider manifestUrl="/tonconnect-manifest.json">
       <SidebarProvider defaultOpen={true}>
         <CartProvider>
+          <LoadingScreen />
           <div className="flex min-h-svh w-full">
             <AppSidebar />
             <SidebarInset>
@@ -39,7 +41,7 @@ function Header({ onOpenCart }: { onOpenCart: () => void }) {
       <div className="flex h-14 items-center gap-3 px-3 md:px-4">
         <SidebarTrigger />
         <div className="flex flex-1 items-center gap-2 overflow-hidden">
-          <h1 className="truncate text-base font-semibold md:text-lg">TON Cafe</h1>
+          <h1 className="truncate text-base font-semibold md:text-lg">Nomad-Cafe</h1>
           <div className="ml-auto flex items-center gap-2">
             <div className="hidden sm:block">
               <Input
