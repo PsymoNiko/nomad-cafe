@@ -1,3 +1,5 @@
+export const ADMIN_WALLET_ADDRESS = "UQAJKfqA1D1MDkhKpiWnQDm6oCfMLhCYNWUkTviOwKa00ZzU"
+
 export function formatTon(amountTon: number, maxFrac = 3) {
   return amountTon.toLocaleString(undefined, {
     minimumFractionDigits: 0,

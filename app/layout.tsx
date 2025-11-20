@@ -1,29 +1,31 @@
-import type { Metadata, Viewport } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
-import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
+import type React from "react"
+import type { Metadata, Viewport } from "next"
+import { GeistSans } from "geist/font/sans"
+import { GeistMono } from "geist/font/mono"
+import { Analytics } from "@vercel/analytics/next"
+import { LoadingScreen } from "@/components/loading-screen"
+import "./globals.css"
 
 export const metadata: Metadata = {
-  title: 'Nomad-Cafe | Coffee & TON Payments',
-  description: 'Experience specialty coffee and artisan treats, powered by TON blockchain payments',
-  generator: 'v0.app',
-  applicationName: 'Nomad-Cafe',
-  manifest: '/manifest.json',
+  title: "Nomad-Cafe | Coffee & TON Payments",
+  description: "Experience specialty coffee and artisan treats, powered by TON blockchain payments",
+  generator: "v0.app",
+  applicationName: "Nomad-Cafe",
+  manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
-    title: 'Nomad-Cafe',
+    statusBarStyle: "default",
+    title: "Nomad-Cafe",
   },
   icons: {
-    icon: '/icon.svg',
-    apple: '/icon-192.jpg',
+    icon: "/nomad-logo.jpg",
+    apple: "/nomad-logo.jpg",
   },
 }
 
 export const viewport: Viewport = {
-  themeColor: '#21edd5',
-  width: 'device-width',
+  themeColor: "#21edd5",
+  width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
@@ -37,6 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans antialiased ${GeistSans.variable} ${GeistMono.variable}`}>
+        <LoadingScreen />
         {children}
         <Analytics />
       </body>

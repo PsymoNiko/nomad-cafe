@@ -1,8 +1,7 @@
 "use client"
 
-import { Coffee, MapPin, ReceiptText, Settings } from 'lucide-react'
+import { Coffee, MapPin, ReceiptText, Settings } from "lucide-react"
 import Link from "next/link"
-import { TonConnectButton } from "@tonconnect/ui-react"
 
 import {
   Sidebar,
@@ -14,7 +13,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarFooter,
   SidebarSeparator,
   SidebarRail,
 } from "@/components/ui/sidebar"
@@ -60,12 +58,6 @@ export function AppSidebar() {
         </SidebarGroup>
         <SidebarSeparator />
       </SidebarContent>
-      <SidebarFooter className="p-4">
-        <div className="group-data-[collapsible=icon]:hidden">
-          <div className="mb-2 text-xs font-medium text-muted-foreground">TON Wallet</div>
-          <TonConnectButton />
-        </div>
-      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )
