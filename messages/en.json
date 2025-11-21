@@ -1,0 +1,151 @@
+{
+  "app": {
+    "title": "Nomad-Cafe",
+    "subtitle": "Powered by TON",
+    "description": "Coffee & TON Payments"
+  },
+  "home": {
+    "welcome": "Welcome to Nomad-Cafe",
+    "heroDescription": "Experience specialty coffee and artisan treats, powered by TON blockchain payments.",
+    "categories": {
+      "all": "All"
+    }
+  },
+  "menu": {
+    "searchPlaceholder": "Search menu...",
+    "details": "Details",
+    "add": "Add",
+    "addToCart": "Add to Cart",
+    "backToMenu": "Back to Menu"
+  },
+  "categories": {
+    "Coffee": "Coffee",
+    "Tea": "Tea",
+    "Bakery": "Bakery"
+  },
+  "items": {
+    "latte": {
+      "title": "Caffè Latte",
+      "description": "Rich espresso with steamed milk"
+    },
+    "americano": {
+      "title": "Americano",
+      "description": "Smooth espresso diluted with hot water"
+    },
+    "croissant": {
+      "title": "Butter Croissant",
+      "description": "Flaky, buttery pastry"
+    },
+    "matcha": {
+      "title": "Matcha Latte",
+      "description": "Ceremonial matcha with milk"
+    },
+    "espresso": {
+      "title": "Espresso",
+      "description": "Pure, strong Italian coffee"
+    },
+    "chai": {
+      "title": "Chai Latte",
+      "description": "Spiced tea with steamed milk"
+    }
+  },
+  "ingredients": {
+    "title": "Ingredients",
+    "espresso": "Espresso",
+    "steamed_milk": "Steamed Milk",
+    "milk_foam": "Milk Foam",
+    "hot_water": "Hot Water",
+    "wheat_flour": "Wheat Flour",
+    "butter": "Butter",
+    "yeast": "Yeast",
+    "sugar": "Sugar",
+    "matcha_powder": "Matcha Powder",
+    "honey": "Honey",
+    "arabica_coffee": "Arabica Coffee Beans",
+    "black_tea": "Black Tea",
+    "cinnamon": "Cinnamon",
+    "cardamom": "Cardamom",
+    "ginger": "Ginger"
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty. Add items from the menu to get started.",
+    "each": "each",
+    "remove": "Remove",
+    "pay": "Pay",
+    "ton": "TON"
+  },
+  "item": {
+    "notFound": "Item not found",
+    "off": "OFF"
+  },
+  "reviews": {
+    "title": "Customer Reviews",
+    "leaveReview": "Leave a Review",
+    "phoneNumber": "Phone Number",
+    "fullName": "Full Name (Optional)",
+    "rating": "Rating",
+    "yourReview": "Your Review",
+    "reviewPlaceholder": "Share your thoughts about this item...",
+    "submitReview": "Submit Review"
+  },
+  "navigation": {
+    "menu": "Menu",
+    "map": "Map",
+    "myOrders": "My Orders",
+    "settings": "Settings",
+    "navigation": "Navigation"
+  },
+  "orders": {
+    "title": "Order Details",
+    "orderId": "Order ID",
+    "status": "Status",
+    "total": "Total",
+    "paymentStatus": "Payment Status",
+    "items": "Items",
+    "qty": "Qty",
+    "price": "Price",
+    "backToOrders": "Back to Orders",
+    "statusPending": "Pending",
+    "statusConfirmed": "Confirmed",
+    "statusPreparing": "Preparing",
+    "statusReady": "Ready for Pickup",
+    "statusCompleted": "Completed",
+    "paymentPaid": "Paid",
+    "paymentPending": "Pending"
+  },
+  "map": {
+    "title": "Find Us",
+    "description": "Locate nearby Nomad-Cafe locations",
+    "searchPlaceholder": "Search locations...",
+    "getDirections": "Get Directions",
+    "callNow": "Call Now",
+    "viewMenu": "View Menu"
+  },
+  "payment": {
+    "title": "Complete Payment",
+    "scanQR": "Scan QR code with your TON wallet",
+    "or": "Or",
+    "copyAddress": "Copy Wallet Address",
+    "copied": "Copied!",
+    "amount": "Amount",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "processing": "Processing...",
+    "success": "Payment Successful!",
+    "failed": "Payment Failed"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "close": "Close",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort"
+  }
+}

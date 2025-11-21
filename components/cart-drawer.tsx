@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import { Minus, Plus, Trash2 } from 'lucide-react'
 import { formatTon } from "@/utils/ton"
+import { useTranslations } from 'next-intl'
 
 export function CartDrawer({
   open,
@@ -16,21 +17,22 @@ export function CartDrawer({
   onOpenChange: (open: boolean) => void
 }) {
   const { items, updateQty, removeItem, subtotalTon } = useCart()
+  const t = useTranslations()
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="right" className="w-full sm:max-w-md">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
-            <span>Your Cart</span>
-            <Badge variant="secondary" className="text-xs">Nomad-Cafe</Badge>
+            <span>{t('cart.title')}</span>
+            <Badge variant="secondary" className="text-xs">{t('app.title')}</Badge>
           </SheetTitle>
         </SheetHeader>
         <div className="mt-4 flex h-[calc(100dvh-9rem)] flex-col">
           <div className="flex-1 space-y-3 overflow-auto pr-2">
             {items.length === 0 && (
               <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
-                Your cart is empty. Add items from the menu to get started.
+                {t('cart.empty')}
               </p>
             )}
             {items.map((item) => (
@@ -53,14 +55,14 @@ export function CartDrawer({
                     <button
                       className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
                       onClick={() => removeItem(item.id)}
-                      aria-label={`Remove ${item.title}`}
+                      aria-label={`${t('cart.remove')} ${item.title}`}
                       style={{ minWidth: '32px', minHeight: '32px' }}
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
                   </div>
                   <div className="mb-2 text-xs font-medium text-muted-foreground">
-                    {formatTon(item.priceTon)} TON each
+                    {formatTon(item.priceTon)} {t('cart.ton')} {t('cart.each')}
                   </div>
                   <div className="flex items-center gap-2">
                     <button
