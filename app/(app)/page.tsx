@@ -21,17 +21,17 @@ export default function Page() {
   const filtered = SAMPLE_MENU.filter((m) => category === "All" || m.category === category)
 
   return (
-    <main className="pb-24 md:pb-8">
-      <section className="brand-gradient mb-4 rounded-xl p-4 text-white shadow-lg sm:p-6 md:mb-6 md:p-8">
-        <h1 className="text-balance text-lg font-bold sm:text-xl md:text-3xl">Welcome to Nomad-Cafe</h1>
-        <p className="mt-1.5 text-pretty text-xs leading-relaxed text-white/90 sm:text-sm md:mt-2 md:text-base">
+    <main className="pb-20 sm:pb-24 md:pb-8">
+      <section className="brand-gradient mb-4 rounded-xl p-3 text-white shadow-lg sm:p-6 md:mb-6 md:p-8">
+        <h1 className="text-balance text-base font-bold sm:text-xl md:text-3xl">Welcome to Nomad-Cafe</h1>
+        <p className="mt-1 text-pretty text-[11px] leading-relaxed text-white/90 sm:mt-1.5 sm:text-sm md:mt-2 md:text-base">
           {
             "Experience specialty coffee and artisan treats, powered by TON blockchain payments. All our beverages are non-alcoholic and suitable for all ages."
           }
         </p>
       </section>
 
-      <div className="sticky top-14 z-10 -mx-4 mb-3 bg-background/95 px-3 py-2.5 backdrop-blur-sm sm:-mx-6 sm:mb-4 sm:px-4 sm:py-3 md:px-6">
+      <div className="sticky top-14 z-10 -mx-4 mb-3 bg-background/95 px-2 py-2 backdrop-blur-sm sm:-mx-6 sm:mb-4 sm:px-4 sm:py-3 md:px-6">
         <div
           ref={categoryBarRef}
           className="no-scrollbar flex gap-2 overflow-x-auto"
@@ -41,12 +41,12 @@ export default function Page() {
             <button
               key={c}
               onClick={() => setCategory(c)}
-              className={`shrink-0 rounded-full px-4 py-2 text-xs font-medium transition-all sm:px-5 sm:py-2.5 sm:text-sm ${
+              className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-all sm:px-5 sm:py-2.5 sm:text-sm ${
                 category === c
                   ? "bg-primary text-primary-foreground shadow-md"
                   : "bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
               }`}
-              style={{ scrollSnapAlign: "start", minHeight: "40px" }}
+              style={{ scrollSnapAlign: "start", minHeight: "32px" }}
               aria-pressed={category === c}
             >
               {c}
@@ -130,15 +130,15 @@ export default function Page() {
         ))}
       </div>
 
-      <div className="fixed bottom-3 left-3 right-3 z-20 sm:bottom-4 sm:left-4 sm:right-4 md:left-auto md:right-8 md:w-auto">
+      <div className="fixed bottom-2 left-2 right-2 z-20 sm:bottom-4 sm:left-4 sm:right-4 md:left-auto md:right-8 md:w-auto">
         <Button
           size="lg"
           className="brand-gradient w-full text-white shadow-2xl md:w-auto md:min-w-[16rem]"
           disabled={subtotalTon === 0}
           onClick={() => setOpenPay(true)}
-          style={{ minHeight: "48px" }}
+          style={{ minHeight: "44px" }}
         >
-          <span className="text-sm font-semibold md:text-base">Pay {formatTon(subtotalTon)} TON</span>
+          <span className="text-xs font-semibold sm:text-sm md:text-base">Pay {formatTon(subtotalTon)} TON</span>
         </Button>
       </div>
 

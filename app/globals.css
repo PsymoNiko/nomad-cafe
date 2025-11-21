@@ -136,6 +136,12 @@
   * {
     @apply border-border outline-ring/50;
   }
+  
+  /* Prevent horizontal scrolling on mobile */
+  html, body {
+    @apply overflow-x-hidden;
+  }
+  
   body {
     @apply bg-background text-foreground antialiased;
   }
