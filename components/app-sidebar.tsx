@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/sidebar"
 
 const items = [
-  { title: "Menu", href: "/(app)", icon: Coffee },
+  { title: "Menu", href: "/", icon: Coffee },
   { title: "Map", href: "/map", icon: MapPin },
   { title: "My Orders", href: "/(app)/orders/12345", icon: ReceiptText },
   { title: "Settings", href: "#", icon: Settings },
