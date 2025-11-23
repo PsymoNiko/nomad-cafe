@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
       message: "Transaction received. Verification in progress.",
       order_id,
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[v0] Payment submission error:", error)
     return NextResponse.json(
       { error: "Failed to process payment submission" },

@@ -12,7 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useCart } from "@/components/cart-context"
 import { formatTon } from "@/utils/ton"
 import { ArrowLeft, Plus, Star } from 'lucide-react'
-import { SAMPLE_MENU } from "../../page"
+import { SAMPLE_MENU } from "../../menu-data"
 
 type Comment = {
   id: string
@@ -33,10 +33,18 @@ const SAMPLE_COMMENTS: Record<string, Comment[]> = {
   ],
 }
 
-export default async function ItemDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
+export default function ItemDetailPage({ params }: { params: { id: string } }) {
+  const [resolvedParams, setResolvedParams] = React.useState<{ id: string } | null>(null)
   
-  const item = SAMPLE_MENU.find((m) => m.id === id)
+  React.useEffect(() => {
+    Promise.resolve(params).then(setResolvedParams)
+  }, [params])
+  
+  if (!resolvedParams) {
+    return null
+  }
+  
+  const item = SAMPLE_MENU.find((m) => m.id === resolvedParams.id)
 
   if (!item) {
     return (

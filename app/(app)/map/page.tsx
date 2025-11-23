@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { MapPin, Target, Navigation } from 'lucide-react'
+import { MapPin, Target, Navigation } from "lucide-react"
 
 type Cafe = {
   id: number
@@ -15,8 +15,8 @@ type Cafe = {
   wallet_address: string
 }
 
-const NOMAD_CAFE_LAT = parseFloat(process.env.NEXT_PUBLIC_CAFE_LAT || "35.6892")
-const NOMAD_CAFE_LNG = parseFloat(process.env.NEXT_PUBLIC_CAFE_LNG || "51.3890")
+const NOMAD_CAFE_LAT = Number.parseFloat(process.env.NEXT_PUBLIC_CAFE_LAT || "35.7173075")
+const NOMAD_CAFE_LNG = Number.parseFloat(process.env.NEXT_PUBLIC_CAFE_LNG || "51.4185506")
 
 export default function MapPage() {
   const [coords, setCoords] = React.useState<{ lat: number; lng: number } | null>(null)
@@ -45,15 +45,16 @@ export default function MapPage() {
       const res = await fetch(`/api/cafes/nearest?lat=${lat}&lng=${lng}&limit=5`)
       const data: Cafe[] = await res.json()
       setCafes(data)
-    } catch (e: any) {
-      setError(e.message || "Failed to get location. Please enable location services.")
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "Failed to get location. Please enable location services."
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
   }
 
   function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
-    const R = 6371 // Earth's radius in km
+    const R = 6371
     const dLat = toRad(lat2 - lat1)
     const dLon = toRad(lon2 - lon1)
     const a =
@@ -72,16 +73,16 @@ export default function MapPage() {
       <div className="brand-gradient mb-6 rounded-xl p-6 text-white shadow-lg">
         <h1 className="text-balance text-2xl font-bold">Find Nomad-Cafe</h1>
         <p className="mt-2 text-pretty text-sm leading-relaxed text-white/90">
-          {'Locate the nearest Nomad-Cafe locations near you'}
+          {"Locate the nearest Nomad-Cafe locations near you"}
         </p>
       </div>
 
-      <Button 
-        onClick={locate} 
+      <Button
+        onClick={locate}
         disabled={loading}
         size="lg"
         className="mb-6 w-full gap-2 md:w-auto"
-        style={{ minHeight: '48px' }}
+        style={{ minHeight: "48px" }}
       >
         <Target className="h-5 w-5" />
         {loading ? "Locating..." : "Use my location"}
@@ -99,18 +100,30 @@ export default function MapPage() {
 
       <div className="mb-6 overflow-hidden rounded-xl border shadow-md">
         <iframe
-          src={`https://www.openstreetmap.org/export/embed.html?bbox=${NOMAD_CAFE_LNG - 0.01},${NOMAD_CAFE_LAT - 0.01},${NOMAD_CAFE_LNG + 0.01},${NOMAD_CAFE_LAT + 0.01}&layer=mapnik&marker=${NOMAD_CAFE_LAT},${NOMAD_CAFE_LNG}`}
+          src={`https://maps.google.com/maps?q=${NOMAD_CAFE_LAT},${NOMAD_CAFE_LNG}&hl=en&z=15&output=embed`}
           width="100%"
-          height="400"
+          height="450"
           style={{ border: 0 }}
           loading="lazy"
           title="Nomad-Cafe location map"
+          className="min-h-[300px] md:min-h-[450px]"
         />
       </div>
 
+      <Button asChild variant="outline" className="mb-6 w-full gap-2 bg-transparent" style={{ minHeight: "48px" }}>
+        <a
+          href={`https://www.google.com/maps/dir/?api=1&destination=${NOMAD_CAFE_LAT},${NOMAD_CAFE_LNG}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Navigation className="h-5 w-5" />
+          Get Directions to Nomad-Cafe
+        </a>
+      </Button>
+
       {!coords && !error && (
         <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
-          Click "Use my location" to calculate your distance to Nomad-Cafe and find directions.
+          Click &quot;Use my location&quot; to calculate your distance to Nomad-Cafe and find directions.
         </p>
       )}
       {error && (
@@ -131,20 +144,13 @@ export default function MapPage() {
                       Nomad-Cafe
                     </Badge>
                   </div>
-                  <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
-                    {cafe.address}
-                  </p>
+                  <p className="text-pretty text-sm leading-relaxed text-muted-foreground">{cafe.address}</p>
                 </div>
                 <div className="shrink-0 rounded-md bg-primary/10 px-3 py-1.5 text-sm font-bold text-primary">
                   {(cafe.distance_m / 1000).toFixed(1)} km
                 </div>
               </div>
-              <Button
-                asChild
-                variant="outline"
-                className="w-full gap-2"
-                style={{ minHeight: '44px' }}
-              >
+              <Button asChild variant="outline" className="w-full gap-2 bg-transparent" style={{ minHeight: "44px" }}>
                 <a
                   href={`https://www.google.com/maps/dir/?api=1&destination=${cafe.lat},${cafe.lng}`}
                   target="_blank"

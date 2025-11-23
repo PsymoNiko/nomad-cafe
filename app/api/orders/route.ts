@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const items = Array.isArray(body?.items) ? body.items : []
     // items: [{menu_item_id, qty, price_ton}]
-    const total = items.reduce((acc: number, it: any) => acc + (Number(it?.price_ton) || 0) * (Number(it?.qty) || 0), 0)
+    const total = items.reduce((acc: number, it: { price_ton?: number; qty?: number }) => acc + (Number(it?.price_ton) || 0) * (Number(it?.qty) || 0), 0)
 
     // Placeholder merchant address (replace in prod)
     const recipient = "EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -19,7 +19,8 @@ export async function POST(req: NextRequest) {
       order: { id: orderId, total_amount_ton: total },
       payment: { recipient, amount_ton: total, text, ton_uri },
     })
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 400 })
+  } catch (e: unknown) {
+    const errorMessage = e instanceof Error ? e.message : "An error occurred"
+    return NextResponse.json({ error: errorMessage }, { status: 400 })
   }
 }
