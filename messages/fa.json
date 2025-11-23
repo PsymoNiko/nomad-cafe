@@ -1,0 +1,151 @@
+{
+  "app": {
+    "title": "نومد-کافه",
+    "subtitle": "با پشتیبانی تون",
+    "description": "قهوه و پرداخت با تون"
+  },
+  "home": {
+    "welcome": "به نومد-کافه خوش آمدید",
+    "heroDescription": "قهوههای تخصصی و شیرینیهای دستساز را تجربه کنید، با پرداخت بلاکچین تون.",
+    "categories": {
+      "all": "همه"
+    }
+  },
+  "menu": {
+    "searchPlaceholder": "جستجو در منو...",
+    "details": "جزئیات",
+    "add": "افزودن",
+    "addToCart": "افزودن به سبد",
+    "backToMenu": "بازگشت به منو"
+  },
+  "categories": {
+    "Coffee": "قهوه",
+    "Tea": "چای",
+    "Bakery": "نانوایی"
+  },
+  "items": {
+    "latte": {
+      "title": "کافه لاته",
+      "description": "اسپرسو غنی با شیر بخار شده"
+    },
+    "americano": {
+      "title": "آمریکانو",
+      "description": "اسپرسو نرم رقیق شده با آب داغ"
+    },
+    "croissant": {
+      "title": "کروسان کرهای",
+      "description": "شیرینی ورقی و کرهای"
+    },
+    "matcha": {
+      "title": "ماچا لاته",
+      "description": "ماچای تشریفاتی با شیر"
+    },
+    "espresso": {
+      "title": "اسپرسو",
+      "description": "قهوه خالص و قوی ایتالیایی"
+    },
+    "chai": {
+      "title": "چای لاته",
+      "description": "چای ادویهدار با شیر بخار شده"
+    }
+  },
+  "ingredients": {
+    "title": "مواد تشکیلدهنده",
+    "espresso": "اسپرسو",
+    "steamed_milk": "شیر بخار شده",
+    "milk_foam": "کف شیر",
+    "hot_water": "آب داغ",
+    "wheat_flour": "آرد گندم",
+    "butter": "کره",
+    "yeast": "مخمر",
+    "sugar": "شکر",
+    "matcha_powder": "پودر ماچا",
+    "honey": "عسل",
+    "arabica_coffee": "دانه قهوه عربیکا",
+    "black_tea": "چای سیاه",
+    "cinnamon": "دارچین",
+    "cardamom": "هل",
+    "ginger": "زنجبیل"
+  },
+  "cart": {
+    "title": "سبد خرید شما",
+    "empty": "سبد خرید شما خالی است. از منو آیتم اضافه کنید.",
+    "each": "عدد",
+    "remove": "حذف",
+    "pay": "پرداخت",
+    "ton": "تون"
+  },
+  "item": {
+    "notFound": "آیتم یافت نشد",
+    "off": "تخفیف"
+  },
+  "reviews": {
+    "title": "نظرات مشتریان",
+    "leaveReview": "ثبت نظر",
+    "phoneNumber": "شماره تلفن",
+    "fullName": "نام کامل (اختیاری)",
+    "rating": "امتیاز",
+    "yourReview": "نظر شما",
+    "reviewPlaceholder": "نظر خود را درباره این محصول به اشتراک بگذارید...",
+    "submitReview": "ثبت نظر"
+  },
+  "navigation": {
+    "menu": "منو",
+    "map": "نقشه",
+    "myOrders": "سفارشهای من",
+    "settings": "تنظیمات",
+    "navigation": "منو"
+  },
+  "orders": {
+    "title": "جزئیات سفارش",
+    "orderId": "شماره سفارش",
+    "status": "وضعیت",
+    "total": "مجموع",
+    "paymentStatus": "وضعیت پرداخت",
+    "items": "آیتمها",
+    "qty": "تعداد",
+    "price": "قیمت",
+    "backToOrders": "بازگشت به سفارشها",
+    "statusPending": "در انتظار",
+    "statusConfirmed": "تایید شده",
+    "statusPreparing": "در حال آمادهسازی",
+    "statusReady": "آماده تحویل",
+    "statusCompleted": "تکمیل شده",
+    "paymentPaid": "پرداخت شده",
+    "paymentPending": "در انتظار"
+  },
+  "map": {
+    "title": "ما را پیدا کنید",
+    "description": "موقعیتهای نومد-کافه در نزدیکی شما",
+    "searchPlaceholder": "جستجوی موقعیتها...",
+    "getDirections": "مسیریابی",
+    "callNow": "تماس",
+    "viewMenu": "مشاهده منو"
+  },
+  "payment": {
+    "title": "تکمیل پرداخت",
+    "scanQR": "کد QR را با کیف پول تون خود اسکن کنید",
+    "or": "یا",
+    "copyAddress": "کپی آدرس کیف پول",
+    "copied": "کپی شد!",
+    "amount": "مبلغ",
+    "orderSummary": "خلاصه سفارش",
+    "subtotal": "جمع کل",
+    "processing": "در حال پردازش...",
+    "success": "پرداخت موفق!",
+    "failed": "پرداخت ناموفق"
+  },
+  "common": {
+    "loading": "در حال بارگذاری...",
+    "error": "خطا",
+    "close": "بستن",
+    "cancel": "لغو",
+    "confirm": "تایید",
+    "save": "ذخیره‌سازی",
+    "delete": "حذف",
+    "edit": "ویرایش",
+    "search": "جستجو",
+    "filter": "فیلتر",
+    "sort": "مرتبسازی"
+  }
+}

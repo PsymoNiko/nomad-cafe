@@ -12,7 +12,8 @@ import { CartProvider, useCart } from "@/components/cart-context"
 import { cn } from "@/lib/utils"
 import { TonConnectUIProvider, TonConnectButton } from "@tonconnect/ui-react"
 import { LoadingScreen } from "@/components/loading-screen"
-import { useSearchParams } from "next/navigation"
+import { useTranslations } from 'next-intl'
+import { LanguageSwitcher } from '@/components/language-switcher'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = React.useState(false)
@@ -39,7 +40,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 function Header({ onOpenCart }: { onOpenCart: () => void }) {
   const { totalQty } = useCart()
-  const searchParams = useSearchParams()
+  const t = useTranslations()
   const [showSearch, setShowSearch] = React.useState(false)
 
   return (
@@ -47,7 +48,7 @@ function Header({ onOpenCart }: { onOpenCart: () => void }) {
       <div className="flex h-14 items-center gap-2 px-3 md:px-4">
         <SidebarTrigger />
         <div className="flex flex-1 items-center gap-2 overflow-hidden">
-          <h1 className="truncate text-sm font-semibold md:text-lg">Nomad-Cafe</h1>
+          <h1 className="truncate text-sm font-semibold md:text-lg">{t('app.title')}</h1>
           <div className="ml-auto flex items-center gap-2">
             <Button
               variant="ghost"
@@ -59,8 +60,9 @@ function Header({ onOpenCart }: { onOpenCart: () => void }) {
               <Search className="h-4 w-4" />
             </Button>
             <div className={cn("transition-all", showSearch ? "flex" : "hidden sm:flex")}>
-              <Input placeholder="Search menu..." className="h-9 w-full sm:w-48 md:w-64" aria-label="Search menu" />
+              <Input placeholder={t('menu.searchPlaceholder')} className="h-9 w-full sm:w-48 md:w-64" aria-label="Search menu" />
             </div>
+            <LanguageSwitcher />
             <div className="flex items-center">
               <TonConnectButton />
             </div>
@@ -72,7 +74,7 @@ function Header({ onOpenCart }: { onOpenCart: () => void }) {
               className="h-9 bg-transparent"
             >
               <ShoppingCart className="h-4 w-4 sm:mr-2" />
-              <span className="hidden sm:inline">Cart</span>
+              <span className="hidden sm:inline">{t('cart.title').replace('Your ', '')}</span>
               <span
                 className={cn(
                   "ml-1 sm:ml-2 inline-flex h-5 min-w-5 items-center justify-center rounded bg-primary px-1 text-xs font-medium text-primary-foreground",

@@ -2,6 +2,7 @@
 
 import { Coffee, MapPin, ReceiptText, Settings } from "lucide-react"
 import Link from "next/link"
+import { useTranslations } from 'next-intl'
 
 import {
   Sidebar,
@@ -13,18 +14,19 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarSeparator,
   SidebarRail,
 } from "@/components/ui/sidebar"
 
 const items = [
-  { title: "Menu", href: "/", icon: Coffee },
-  { title: "Map", href: "/map", icon: MapPin },
-  { title: "My Orders", href: "/(app)/orders/12345", icon: ReceiptText },
-  { title: "Settings", href: "#", icon: Settings },
+  { key: "menu", href: "/", icon: Coffee },
+  { key: "map", href: "/map", icon: MapPin },
+  { key: "myOrders", href: "/(app)/orders/12345", icon: ReceiptText },
+  { key: "settings", href: "#", icon: Settings },
 ]
 
 export function AppSidebar() {
+  const t = useTranslations('navigation')
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="border-b border-sidebar-border p-4">
@@ -33,22 +35,22 @@ export function AppSidebar() {
             <Coffee className="h-5 w-5" />
           </div>
           <div className="group-data-[collapsible=icon]:hidden">
-            <div className="text-base font-bold">Nomad-Cafe</div>
-            <div className="text-xs text-muted-foreground">Powered by TON</div>
+            <div className="text-base font-bold">{t('../app.title')}</div>
+            <div className="text-xs text-muted-foreground">{t('../app.subtitle')}</div>
           </div>
         </div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel>{t('navigation')}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+                <SidebarMenuItem key={item.key}>
                   <SidebarMenuButton asChild>
                     <Link href={item.href}>
                       <item.icon />
-                      <span>{item.title}</span>
+                      <span>{t(item.key)}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -56,9 +58,9 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarSeparator />
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
   )
 }
+
