@@ -1,54 +1,27 @@
-import * as React from "react"
-import { LoadingScreen } from "@/components/loading-screen"
+import { ReactNode } from "react"
+import { NextIntlClientProvider } from "next-intl"
+import { getMessages } from "next-intl/server"
+import { notFound } from "next/navigation"
+import { locales, type Locale } from "@/i18n"
 
-export default function LocaleLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <>
-      <LoadingScreen />
-      {children}
-    </>
-  )
-// import * as React from "react"
-// import { LoadingScreen } from "@/components/loading-screen"
-
-// export default function LocaleLayout({
-//   children,
-// }: {
-//   children: React.ReactNode
-// }) {
-//   return (
-//     <>
-//       <LoadingScreen />
-//       {children}
-//     </>
-//   )
-// }
-
-
-// app/[locale]/layout.tsx
-import { ReactNode } from 'react';
-
-// Define your supported locales (match your next-intl config)
-const locales = ['en', 'fa']; // example – replace with your actual locales
-
-export async function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }))
 }
 
-export default function LocaleLayout({
+export default async function LocaleLayout({
   children,
   params,
 }: {
-  children: ReactNode;
-  params: { locale: string };
+  children: ReactNode
+  params: { locale: string }
 }) {
-  return (
-    <html lang={params.locale}>
-      <body>{children}</body>
-    </html>
-  );
+  const { locale } = await Promise.resolve(params)
+
+  if (!locales.includes(locale as Locale)) {
+    notFound()
+  }
+
+  const messages = await getMessages({ locale })
+
+  return <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
 }
