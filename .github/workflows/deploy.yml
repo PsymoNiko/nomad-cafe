@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: ['main']
   workflow_dispatch:
 
 permissions:
@@ -37,22 +37,6 @@ jobs:
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 8
-      - run: pnpm install
-      - run: |
-          echo "NEXT_EXPORT=true" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_BASE_PATH=/nomad-cafe" >> $GITHUB_ENV
-        shell: bash
-      - run: pnpm run build
-      - run: touch out/.nojekyll
-      - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
 
@@ -65,4 +49,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-      - uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4
