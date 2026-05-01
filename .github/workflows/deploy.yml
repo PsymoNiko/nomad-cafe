@@ -2,11 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-<<<<<<< HEAD
-    branches: ['stage']
-=======
     branches: [main]
->>>>>>> c7523c8f09727490134dbf1a44325eff46bd8cd3
   workflow_dispatch:
 
 permissions:
@@ -14,18 +10,14 @@ permissions:
   pages: write
   id-token: write
 
-<<<<<<< HEAD
 concurrency:
   group: 'pages'
   cancel-in-progress: true
 
-=======
->>>>>>> c7523c8f09727490134dbf1a44325eff46bd8cd3
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-<<<<<<< HEAD
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -45,7 +37,7 @@ jobs:
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-=======
+
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
@@ -61,7 +53,6 @@ jobs:
       - run: pnpm run build
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
->>>>>>> c7523c8f09727490134dbf1a44325eff46bd8cd3
         with:
           path: ./out
 
@@ -72,10 +63,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-<<<<<<< HEAD
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
-=======
       - uses: actions/deploy-pages@v4
->>>>>>> c7523c8f09727490134dbf1a44325eff46bd8cd3
