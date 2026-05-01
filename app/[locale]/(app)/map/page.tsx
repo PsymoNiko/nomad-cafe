@@ -13,6 +13,12 @@ type Cafe = {
   lng: number
   distance_m: number
   wallet_address: string
+  // logo: object
+  // description: string
+  // table_num: number
+  // cafe_map_view: object
+  // games: unknown
+
 }
 
 const NOMAD_CAFE_LAT = Number.parseFloat(process.env.NEXT_PUBLIC_CAFE_LAT || "35.7173075")
