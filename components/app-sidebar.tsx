@@ -20,7 +20,7 @@ import {
 const items = [
   { key: "menu", href: "/", icon: Coffee },
   { key: "map", href: "/map", icon: MapPin },
-  { key: "myOrders", href: "/(app)/orders/12345", icon: ReceiptText },
+  { key: "myOrders", href: "/orders/12345", icon: ReceiptText },
   { key: "settings", href: "#", icon: Settings },
 ]
 
