@@ -60,6 +60,17 @@ export default function Page() {
               >
                 {translatedCategory}
               </button>
+              onClick={() => setCategory(c)}
+              className={`shrink-0 rounded-full px-5 py-2.5 text-sm font-medium transition-all ${
+                category === c
+                  ? 'bg-primary text-primary-foreground shadow-md'
+                  : 'bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+              }`}
+              style={{ scrollSnapAlign: 'start', minHeight: '44px' }}
+              aria-pressed={category === c}
+            >
+              {translatedCategory}
+            </button>
             )
           })}
         </div>
@@ -130,6 +141,49 @@ export default function Page() {
                 </div>
               </div>
             </article>
+                <Badge className="absolute right-3 top-3 bg-secondary/90 text-secondary-foreground backdrop-blur-sm">
+                  -{item.discount}%
+                </Badge>
+              )}
+            </div>
+            <div className="p-4">
+              <div className="mb-2 flex items-start justify-between gap-2">
+                <h3 className="text-balance text-base font-semibold leading-snug">{itemTitle}</h3>
+                <div className="shrink-0 rounded-md bg-muted px-2 py-1 text-sm font-bold tabular-nums">
+                  {formatTon(item.priceTon)}
+                </div>
+              </div>
+              <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
+                {itemDescription}
+              </p>
+              <div className="mt-4 flex gap-2">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="flex-1 gap-2"
+                  style={{ minHeight: '44px' }}
+                >
+                  <Link href={`/item/${item.id}`}>
+                    <Eye className="h-4 w-4" />
+                    {t('menu.details')}
+                  </Link>
+                </Button>
+                <Button
+                  onClick={() =>
+                    addItem(
+                      { id: item.id, title: itemTitle, priceTon: item.priceTon, imageUrl: item.imageUrl },
+                      1
+                    )
+                  }
+                  className="flex-1 gap-2 shadow-sm"
+                  style={{ minHeight: '44px' }}
+                >
+                  <Plus className="h-4 w-4" />
+                  {t('menu.add')}
+                </Button>
+              </div>
+            </div>
+          </article>
           )
         })}
       </div>

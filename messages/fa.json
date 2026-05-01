@@ -7,6 +7,7 @@
   "home": {
     "welcome": "به نومد-کافه خوش آمدید",
     "heroDescription": "قهوه‌های تخصصی و شیرینی‌های دست‌ساز را تجربه کنید، با پرداخت بلاکچین تون.",
+    "heroDescription": "قهوههای تخصصی و شیرینیهای دستساز را تجربه کنید، با پرداخت بلاکچین تون.",
     "categories": {
       "all": "همه"
     }
@@ -35,6 +36,8 @@
     "croissant": {
       "title": "کروسان کره‌ای",
       "description": "شیرینی ورقی و کره‌ای"
+      "title": "کروسان کرهای",
+      "description": "شیرینی ورقی و کرهای"
     },
     "matcha": {
       "title": "ماچا لاته",
@@ -51,6 +54,11 @@
   },
   "ingredients": {
     "title": "مواد تشکیل‌دهنده",
+      "description": "چای ادویهدار با شیر بخار شده"
+    }
+  },
+  "ingredients": {
+    "title": "مواد تشکیلدهنده",
     "espresso": "اسپرسو",
     "steamed_milk": "شیر بخار شده",
     "milk_foam": "کف شیر",
@@ -93,6 +101,7 @@
     "menu": "منو",
     "map": "نقشه",
     "myOrders": "سفارش‌های من",
+    "myOrders": "سفارشهای من",
     "settings": "تنظیمات",
     "navigation": "منو"
   },
@@ -109,6 +118,13 @@
     "statusPending": "در انتظار",
     "statusConfirmed": "تایید شده",
     "statusPreparing": "در حال آماده‌سازی",
+    "items": "آیتمها",
+    "qty": "تعداد",
+    "price": "قیمت",
+    "backToOrders": "بازگشت به سفارشها",
+    "statusPending": "در انتظار",
+    "statusConfirmed": "تایید شده",
+    "statusPreparing": "در حال آمادهسازی",
     "statusReady": "آماده تحویل",
     "statusCompleted": "تکمیل شده",
     "paymentPaid": "پرداخت شده",
@@ -118,6 +134,8 @@
     "title": "ما را پیدا کنید",
     "description": "موقعیت‌های نومد-کافه در نزدیکی شما",
     "searchPlaceholder": "جستجوی موقعیت‌ها...",
+    "description": "موقعیتهای نومد-کافه در نزدیکی شما",
+    "searchPlaceholder": "جستجوی موقعیتها...",
     "getDirections": "مسیریابی",
     "callNow": "تماس",
     "viewMenu": "مشاهده منو"
@@ -147,5 +165,6 @@
     "search": "جستجو",
     "filter": "فیلتر",
     "sort": "مرتب‌سازی"
+    "sort": "مرتبسازی"
   }
 }

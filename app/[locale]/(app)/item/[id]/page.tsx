@@ -51,6 +51,12 @@ export default function ItemDetailPage({ params }: { params: { id: string } }) {
     return (
       <div className="flex min-h-[50vh] items-center justify-center">
         <ItemNotFound />
+        <div className="text-center">
+          <h2 className="text-2xl font-bold">Item not found</h2>
+          <Button asChild className="mt-4">
+            <Link href="/">Back to Menu</Link>
+          </Button>
+        </div>
       </div>
     )
   }
@@ -74,6 +80,8 @@ function ItemNotFound() {
 function ItemDetailClient({ item }: { item: typeof SAMPLE_MENU[0] }) {
   const { addItem } = useCart()
   const t = useTranslations()
+function ItemDetailClient({ item }: { item: typeof SAMPLE_MENU[0] }) {
+  const { addItem } = useCart()
   const [comments, setComments] = React.useState<Comment[]>(SAMPLE_COMMENTS[item.id] || [])
   const [phone, setPhone] = React.useState("")
   const [name, setName] = React.useState("")
@@ -112,7 +120,7 @@ function ItemDetailClient({ item }: { item: typeof SAMPLE_MENU[0] }) {
       <Button asChild variant="ghost" className="mb-4 gap-2">
         <Link href="/">
           <ArrowLeft className="h-4 w-4" />
-          {t('menu.backToMenu')}
+          Back to Menu
         </Link>
       </Button>
 
@@ -122,6 +130,7 @@ function ItemDetailClient({ item }: { item: typeof SAMPLE_MENU[0] }) {
             <Image
               src={item.imageUrl || "/placeholder.svg?height=600&width=600&query=cafe+item"}
               alt={`${itemTitle} from ${t('app.title')}`}
+              alt={`${item.title} from Nomad-Cafe`}
               fill
               className="object-cover"
               priority
@@ -132,6 +141,11 @@ function ItemDetailClient({ item }: { item: typeof SAMPLE_MENU[0] }) {
             {item.discount && (
               <Badge className="absolute right-4 top-4 bg-secondary/90 text-secondary-foreground backdrop-blur-sm">
                 -{item.discount}% {t('item.off')}
+              Nomad-Cafe
+            </Badge>
+            {item.discount && (
+              <Badge className="absolute right-4 top-4 bg-secondary/90 text-secondary-foreground backdrop-blur-sm">
+                -{item.discount}% OFF
               </Badge>
             )}
           </div>
@@ -142,6 +156,9 @@ function ItemDetailClient({ item }: { item: typeof SAMPLE_MENU[0] }) {
             <h1 className="text-balance text-3xl font-bold">{itemTitle}</h1>
             <p className="mt-2 text-pretty leading-relaxed text-muted-foreground">
               {itemDescription}
+            <h1 className="text-balance text-3xl font-bold">{item.title}</h1>
+            <p className="mt-2 text-pretty leading-relaxed text-muted-foreground">
+              {item.description}
             </p>
           </div>
 
@@ -171,6 +188,13 @@ function ItemDetailClient({ item }: { item: typeof SAMPLE_MENU[0] }) {
                     </Badge>
                   )
                 })}
+              <h3 className="mb-2 text-lg font-semibold">Ingredients</h3>
+              <div className="flex flex-wrap gap-2">
+                {item.ingredients.map((ingredient) => (
+                  <Badge key={ingredient} variant="secondary">
+                    {ingredient}
+                  </Badge>
+                ))}
               </div>
             </div>
           )}
@@ -179,6 +203,7 @@ function ItemDetailClient({ item }: { item: typeof SAMPLE_MENU[0] }) {
             onClick={() =>
               addItem(
                 { id: item.id, title: itemTitle, priceTon: item.priceTon, imageUrl: item.imageUrl },
+                { id: item.id, title: item.title, priceTon: item.priceTon, imageUrl: item.imageUrl },
                 1
               )
             }
@@ -188,6 +213,7 @@ function ItemDetailClient({ item }: { item: typeof SAMPLE_MENU[0] }) {
           >
             <Plus className="h-5 w-5" />
             {t('menu.addToCart')}
+            Add to Cart
           </Button>
         </div>
       </div>
@@ -198,11 +224,17 @@ function ItemDetailClient({ item }: { item: typeof SAMPLE_MENU[0] }) {
         <Card className="mb-6">
           <CardHeader>
             <CardTitle>{t('reviews.leaveReview')}</CardTitle>
+        <h2 className="mb-6 text-2xl font-bold">Customer Reviews</h2>
+
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle>Leave a Review</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmitComment} className="space-y-4">
               <div>
                 <Label htmlFor="phone">{t('reviews.phoneNumber')} *</Label>
+                <Label htmlFor="phone">Phone Number *</Label>
                 <Input
                   id="phone"
                   type="tel"
@@ -219,6 +251,11 @@ function ItemDetailClient({ item }: { item: typeof SAMPLE_MENU[0] }) {
                   id="name"
                   type="text"
                   placeholder={t('reviews.fullName')}
+                <Label htmlFor="name">Full Name (Optional)</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Your name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -226,6 +263,7 @@ function ItemDetailClient({ item }: { item: typeof SAMPLE_MENU[0] }) {
 
               <div>
                 <Label htmlFor="rating">{t('reviews.rating')}</Label>
+                <Label htmlFor="rating">Rating</Label>
                 <div className="flex gap-1">
                   {[1, 2, 3, 4, 5].map((r) => (
                     <button
@@ -251,6 +289,10 @@ function ItemDetailClient({ item }: { item: typeof SAMPLE_MENU[0] }) {
                 <Textarea
                   id="comment"
                   placeholder={t('reviews.reviewPlaceholder')}
+                <Label htmlFor="comment">Your Review *</Label>
+                <Textarea
+                  id="comment"
+                  placeholder="Share your thoughts about this item..."
                   value={commentText}
                   onChange={(e) => setCommentText(e.target.value)}
                   required
@@ -260,6 +302,7 @@ function ItemDetailClient({ item }: { item: typeof SAMPLE_MENU[0] }) {
 
               <Button type="submit" className="w-full" style={{ minHeight: '48px' }}>
                 {t('reviews.submitReview')}
+                Submit Review
               </Button>
             </form>
           </CardContent>
