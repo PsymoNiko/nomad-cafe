@@ -4,7 +4,7 @@ import * as React from "react"
 import { useCart } from "./cart-context"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter, SheetDescription } from "@/components/ui/sheet"
-import { useToast } from "@/hooks/use-toast"
+import { toast } from "@/lib/toast"
 import QRCode from "react-qr-code"
 import { formatTon } from "@/utils/ton"
 import { useTonConnectUI, useTonWallet, useTonAddress } from "@tonconnect/ui-react"
@@ -23,7 +23,6 @@ export function PaymentSheet({
   onOpenChange: (open: boolean) => void
 }) {
   const { items, subtotalTon, clear } = useCart()
-  const { toast } = useToast()
   const [loading, setLoading] = React.useState(false)
   const [result, setResult] = React.useState<CreateOrderResponse | null>(null)
 
@@ -48,10 +47,10 @@ export function PaymentSheet({
       if (!res.ok) throw new Error("Failed to create order")
       const data: CreateOrderResponse = await res.json()
       setResult(data)
-      toast({ title: "Order created", description: `Order #${data.order.id}` })
+      toast.success("Order created", { description: `Order #${data.order.id}` })
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : "An error occurred"
-      toast({ title: "Error", description: errorMessage, variant: "destructive" })
+      toast.error("Error", { description: errorMessage })
     } finally {
       setLoading(false)
     }
@@ -59,7 +58,7 @@ export function PaymentSheet({
 
   async function sendPayment() {
     if (!result || !wallet) {
-      toast({ title: "Error", description: "Connect wallet first", variant: "destructive" })
+      toast.error("Error", { description: "Connect wallet first" })
       return
     }
 
@@ -91,8 +90,7 @@ export function PaymentSheet({
         }),
       })
 
-      toast({
-        title: "Payment sent",
+      toast.success("Payment sent", {
         description: "Transaction submitted. We'll verify on-chain shortly.",
       })
 
@@ -103,11 +101,7 @@ export function PaymentSheet({
     } catch (err: unknown) {
       console.error("[v0] Payment error:", err)
       const errorMessage = err instanceof Error ? err.message : "Transaction was rejected or failed"
-      toast({
-        title: "Payment failed",
-        description: errorMessage,
-        variant: "destructive",
-      })
+      toast.error("Payment failed", { description: errorMessage })
     } finally {
       setLoading(false)
     }

@@ -2,6 +2,7 @@ import { ReactNode } from "react"
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages } from "next-intl/server"
 import { notFound } from "next/navigation"
+import { Providers } from "@/components/providers"
 import { locales, type Locale } from "@/i18n"
 
 export function generateStaticParams() {
@@ -23,5 +24,9 @@ export default async function LocaleLayout({
 
   const messages = await getMessages({ locale })
 
-  return <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+  return (
+    <NextIntlClientProvider messages={messages}>
+      <Providers>{children}</Providers>
+    </NextIntlClientProvider>
+  )
 }
