@@ -1,0 +1,14 @@
+version: '3.8'
+
+
+services:
+  cafe-crypto-swagger:
+    image: swaggerapi/swagger-ui:latest
+    container_name: cafe_crypto_swagger
+    ports:
+      - "8181:8080"
+    volumes:
+      - ./docs/swagger.yaml:/spec/openapi.yaml
+      #- ./swagger-config.json:/usr/share/nginx/html/swagger-config.json
+    environment:
+      - SWAGGER_JSON=/spec/openapi.yaml

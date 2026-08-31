@@ -1,0 +1,300 @@
+openapi: 3.0.0
+info:
+  title: Nomad Cafe Platform API
+  description: Multi-tenant REST API for Cafe Owners to manage their digital cafes and menus, and for Crypto Customers to order and pay via TON blockchain.
+  version: 2.0.0
+servers:
+  - url: https://api.nomadcafe.com/v2
+    description: Production Server
+
+tags:
+  - name: Auth
+    description: Authentication for both Cafe Owners and Customers (Wallet)
+  - name: Cafe Management (Owner)
+    description: Endpoints for Cafe Owners to manage profile and menu
+  - name: Customer Flow
+    description: Endpoints for customers to browse, order, and pay
+
+paths:
+  # ---------------- AUTHENTICATION ----------------
+  /auth/owner/register:
+    post:
+      summary: Register a new Cafe Owner
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OwnerRegistrationRequest'
+      responses:
+        '201':
+          description: Owner registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+
+  /auth/customer/wallet-login:
+    post:
+      summary: Customer login/registration via Web3 Wallet signature
+      tags: [Auth]
+      description: Customer signs a unique message (nonce) with their wallet to authenticate.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WalletLoginRequest'
+      responses:
+        '200':
+          description: Authenticated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+
+  # ---------------- CAFE MANAGEMENT (OWNER) ----------------
+  /owner/cafe/profile:
+    put:
+      summary: Update Cafe Profile Details
+      tags: [Cafe Management (Owner)]
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CafeProfile'
+      responses:
+        '200':
+          description: Profile updated
+
+  /owner/menu:
+    post:
+      summary: Add a new item to the cafe menu
+      tags: [Cafe Management (Owner)]
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MenuItemInput'
+      responses:
+        '201':
+          description: Menu item created
+
+  # ---------------- CUSTOMER FLOW (BROWSING & ORDERING) ----------------
+  /cafes:
+    get:
+      summary: Get a list of all registered cafes
+      tags: [Customer Flow]
+      responses:
+        '200':
+          description: List of cafes with their basic info and geolocation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CafeProfile'
+
+  /cafes/{cafeId}/menu:
+    get:
+      summary: Get the menu of a specific cafe
+      tags: [Customer Flow]
+      parameters:
+        - in: path
+          name: cafeId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of menu items for the requested cafe
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MenuItem'
+
+  /customer/orders:
+    post:
+      summary: Place an order at a specific cafe
+      tags: [Customer Flow]
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '201':
+          description: Order added to list and ready for payment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+
+  /customer/payments/ton/checkout:
+    post:
+      summary: Generate TON payment deep link for an order
+      tags: [Customer Flow]
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                orderId:
+                  type: string
+      responses:
+        '200':
+          description: TON payment URL generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonPaymentResponse'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    OwnerRegistrationRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          example: "owner@nomadcafe.com"
+        password:
+          type: string
+          example: "StrongPass123!"
+        cafeName:
+          type: string
+          example: "Nomad Coffee House"
+
+    WalletLoginRequest:
+      type: object
+      properties:
+        walletAddress:
+          type: string
+          example: "EQBvW8Z5huKd4_a1i2xP_R1b"
+        signature:
+          type: string
+          description: "Cryptographic signature of the backend-provided nonce"
+          example: "a8f9c2...71d4e"
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: "JWT Token for subsequent requests"
+        role:
+          type: string
+          enum: [OWNER, CUSTOMER]
+
+    CafeProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          example: "Nomad Coffee House"
+        logoUrl:
+          type: string
+          example: "https://storage.nomadcafe.com/logos/nomad.png"
+        quote:
+          type: string
+          description: "A quote or description of the cafe"
+          example: "Fueling your digital nomad journey, one cup at a time."
+        address:
+          type: string
+          example: "123 Tech Boulevard, Innovation District"
+        geoLocation:
+          type: string
+          description: "Latitude and Longitude stored as a string"
+          example: "35.6892,51.3890"
+
+    MenuItemInput:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Spiced Indian-style milk tea"
+        imageUrl:
+          type: string
+          example: "https://storage.nomadcafe.com/items/masala_chai.jpg"
+        ingredients:
+          type: array
+          items:
+            type: string
+          example: ["Black Tea", "Milk", "Cardamom", "Cinnamon", "Ginger"]
+        priceTon:
+          type: number
+          format: float
+          example: 0.25
+
+    MenuItem:
+      allOf:
+        - $ref: '#/components/schemas/MenuItemInput'
+        - type: object
+          properties:
+            id:
+              type: string
+              readOnly: true
+
+    OrderRequest:
+      type: object
+      properties:
+        cafeId:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              menuItemId:
+                type: string
+              quantity:
+                type: integer
+                example: 2
+
+    OrderResponse:
+      type: object
+      properties:
+        orderId:
+          type: string
+        cafeId:
+          type: string
+        customerWallet:
+          type: string
+        status:
+          type: string
+          enum: [PENDING_PAYMENT, PAID, PREPARING, READY]
+        totalTon:
+          type: number
+          format: float
+          example: 0.50
+
+    TonPaymentResponse:
+      type: object
+      properties:
+        paymentUrl:
+          type: string
+          example: "ton://transfer/EQBvW8Z5huKd4_a1i2xP_R1b?amount=500000000&text=Order_12345"

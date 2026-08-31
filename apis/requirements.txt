@@ -1,0 +1,14 @@
+Django~=4.2
+djangorestframework
+djangorestframework-simplejwt
+pynacl
+typing_extensions~=4.15
+python-decouple==3.8
+python-dotenv
+django-cors-headers~=4.3
+django-filter~=25.1
+django-storages~=1.14
+boto3
+celery
+gunicorn==23.0.0
+psycopg2-binary

@@ -5,7 +5,8 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-
+.qodo
+__pycache__/
 # testing
 /coverage
 
@@ -38,3 +39,4 @@ next-env.d.ts
 
 # screenshots for testing
 screenshots/
+Nomad-Cafe _ Coffee & TON Payments.pdf

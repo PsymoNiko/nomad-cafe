@@ -1,0 +1,59 @@
+erDiagram
+    USER ||--o{ CAFE : "owns (1:N)"
+    USER ||--o{ ORDER : "places (1:N)"
+    CAFE ||--o{ MENU_ITEM : "offers (1:N)"
+    CAFE ||--o{ ORDER : "receives (1:N)"
+    ORDER ||--|{ ORDER_ITEM : "contains (1:N)"
+    MENU_ITEM ||--o{ ORDER_ITEM : "included_in (1:N)"
+    ORDER ||--o| PAYMENT : "has (1:1)"
+
+    USER {
+        UUID id PK
+        String email "Nullable for Customers"
+        String password "Nullable for Customers"
+        String wallet_address "Nullable, Unique for Customers"
+        String role "OWNER | CUSTOMER"
+    }
+
+    CAFE {
+        UUID id PK
+        UUID owner_id FK
+        String name
+        String logo_url
+        String quote
+        String address
+        String geo_location "e.g., '35.6892,51.3890'"
+    }
+
+    MENU_ITEM {
+        UUID id PK
+        UUID cafe_id FK
+        String name
+        String image_url
+        JSON ingredients "Array of strings"
+        Decimal price_ton
+    }
+
+    ORDER {
+        UUID id PK
+        UUID customer_id FK
+        UUID cafe_id FK
+        String status "PENDING, PAID, PREPARING, READY"
+        Decimal total_ton
+        DateTime created_at
+    }
+
+    ORDER_ITEM {
+        UUID id PK
+        UUID order_id FK
+        UUID menu_item_id FK
+        Integer quantity
+    }
+
+    PAYMENT {
+        UUID id PK
+        UUID order_id FK "Unique (1:1)"
+        String transaction_hash
+        BigInteger amount_nano_ton
+        DateTime verified_at
+    }
